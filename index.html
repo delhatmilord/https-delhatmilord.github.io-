@@ -6,37 +6,159 @@
   <meta name="description" content="milord.pikobuy — Alle meine Links an einem Ort" />
   <title>milord.pikobuy</title>
   <style>
-    :root{--bg1:#303030;--bg2:#111;--bg3:#050505;--card-bg:rgba(255,255,255,.10);--card-border:rgba(255,255,255,.15);--text-muted:#cfcfcf;--accent:#4da6ff;--max-width:520px;--radius:16px;--gap:14px}
-    *{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;min-height:100vh;background:radial-gradient(circle at top,var(--bg1)0%,var(--bg2)45%,var(--bg3)100%);color:#fff;display:flex;justify-content:center;padding:30px 15px}
-    .container{width:100%;max-width:var(--max-width);text-align:center}
+    :root{
+      --bg1:#05071a; /* tiefer Nachthimmel */
+      --bg2:#071426;
+      --bg3:#000;
+      --card-bg:rgba(255,255,255,.06);
+      --card-border:rgba(255,255,255,.12);
+      --text-muted:#cfcfcf;
+      --accent:#4da6ff;
+      --max-width:520px;
+      --radius:16px;
+      --gap:14px
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      min-height:100vh;
+      color:#fff;
+      display:flex;
+      justify-content:center;
+      padding:30px 15px;
+      position:relative;
+      overflow:hidden;
+      background: radial-gradient(ellipse at bottom, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
+    }
+
+    /* Sternenhintergrund: zwei Ebenen + Bewegung/Twinkle */
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      mix-blend-mode:screen;
+    }
+    body::before{
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.95) 0.8px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.8) 0.6px, transparent 1px);
+      background-size: 22px 22px, 48px 48px;
+      background-position: 0 0, 12px 30px;
+      opacity:0.95;
+      animation: driftSlow 140s linear infinite;
+      filter: blur(.2px);
+    }
+    body::after{
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.95) 1.6px, transparent 1.7px),
+        radial-gradient(circle, rgba(255,255,255,0.75) 1.2px, transparent 1.3px);
+      background-size: 180px 180px, 260px 260px;
+      background-position: 40px 80px, 120px 10px;
+      opacity:0.85;
+      animation: drift 220s linear infinite, twinkle 4s infinite;
+      filter: contrast(110%);
+    }
+    @keyframes drift{
+      from{ transform: translateY(0) translateX(0); }
+      to{ transform: translateY(-380px) translateX(160px); }
+    }
+    @keyframes driftSlow{
+      from{ transform: translateY(0) translateX(0); }
+      to{ transform: translateY(-140px) translateX(-120px); }
+    }
+    @keyframes twinkle{
+      0%,100%{ opacity:0.85 }
+      50%{ opacity:1 }
+    }
+
+    /* Mond */
+    .moon{
+      position:fixed;
+      top:40px;
+      right:40px;
+      width:88px;
+      height:88px;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #f3f6ff 8%, #cde0ff 18%, rgba(255,255,255,0.06) 60%, transparent 100%);
+      border-radius:50%;
+      box-shadow: 0 0 30px rgba(150,180,255,0.15), inset -6px -6px 18px rgba(0,0,0,0.25);
+      z-index:1;
+      pointer-events:none;
+      transform:translateZ(0);
+      opacity:0.95;
+    }
+    /* leichte Wolken-/Glow-Animation um den Mond */
+    .moon::after{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(77,166,255,0.06), transparent 40%);
+      filter: blur(8px);
+      animation: moonGlow 6s ease-in-out infinite;
+      opacity:.9;
+    }
+    @keyframes moonGlow{
+      0%,100%{ transform: scale(1); opacity:.9 }
+      50%{ transform: scale(1.06); opacity:1 }
+    }
+
+    /* shooting star (ein einzelner, gelegentlicher Meteorit) */
+    .shooting-star{
+      position:fixed;
+      top:20%;
+      left:-10%;
+      width:3px;
+      height:3px;
+      background:linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+      box-shadow: 0 0 8px 2px rgba(255,255,255,0.9);
+      transform: rotate(-25deg) translateX(0);
+      z-index:0;
+      pointer-events:none;
+      animation: shoot 6s linear infinite;
+      opacity:0;
+    }
+    @keyframes shoot{
+      0%{ opacity:0; transform: translateX(0) translateY(0) scaleX(1) rotate(-25deg) }
+      5%{ opacity:1 }
+      40%{ opacity:1; transform: translateX(120vw) translateY(-30vh) scaleX(1.2) rotate(-25deg) }
+      60%{ opacity:0 }
+      100%{ opacity:0; transform: translateX(0) translateY(0) rotate(-25deg) }
+    }
+
+    /* Page content über den Sternen */
+    .container{width:100%;max-width:var(--max-width);text-align:center;position:relative;z-index:3}
     .profile-image{width:105px;height:105px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 30px rgba(0,0,0,.5)}
     .name{margin-top:15px;font-size:28px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center}
     .bio{margin-top:8px;color:var(--text-muted);font-size:15px}
     .links{display:flex;flex-direction:column;gap:14px;margin-top:10px}
-    .link{display:flex;align-items:center;justify-content:center;min-height:62px;padding:15px 20px;color:inherit;text-decoration:none;font-size:17px;font-weight:700;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);backdrop-filter:blur(12px)}
-    .link:hover{transform:translateY(-3px);background:rgba(255,255,255,.18)}
+    .link{display:flex;align-items:center;justify-content:center;min-height:62px;padding:15px 20px;color:inherit;text-decoration:none;font-size:17px;font-weight:700;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);backdrop-filter:blur(8px)}
+    .link:hover{transform:translateY(-3px);background:rgba(255,255,255,.12)}
     .socials{display:flex;justify-content:center;gap:14px;margin-top:20px}
-    footer{margin-top:26px;color:#777;font-size:12px}
+    footer{margin-top:26px;color:#aaa;font-size:12px}
     @media(max-width:500px){body{padding:20px 12px}.name{font-size:25px}.link{font-size:16px}}
   </style>
 </head>
 <body>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="shooting-star" aria-hidden="true"></div>
+
   <div class="container">
     <header class="profile" role="banner">
       <img class="profile-image" src="https://via.placeholder.com/300?text=milord" alt="milord.pikobuy — Profilbild" loading="lazy" width="105" height="105">
       <div class="name">milord.pikobuy <span style="color:var(--accent);margin-left:8px">✓</span></div>
-      <p class="bio">🔗 Alle meine Links an einem Ort</p>
+      <p class="bio">In der Nacht · 🔗 Alle meine Links an einem Ort</p>
     </header>
 
     <main role="main">
       <nav class="links" aria-label="Links">
-        <a class="link" href="https://beacons.ai/litbuyoficial" target="_blank" rel="noopener noreferrer">Mein Beacons</a>
+        <a class="link" href="https://m.pikobuy.com/pages/login/register?invitedCode=ESBKQU" target="_blank" rel="noopener noreferrer">Pikobuy 40%</a>
         <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">Mein TikTok</a>
       </nav>
 
-      <div class="socials" aria-label="Soziale Profile">
-        <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">TikTok</a>
-      </div>
+      <!-- socials entfernt (duplikater TikTok-Link entfernt) -->
     </main>
 
     <footer role="contentinfo"><strong>milord.pikobuy</strong> · All your links in one place</footer>
