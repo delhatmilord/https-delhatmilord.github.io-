@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="milord.pikobuy — Alle meine Links an einem Ort" />
+  <title>milord.pikobuy</title>
+  <style>
+    :root{--bg1:#303030;--bg2:#111;--bg3:#050505;--card-bg:rgba(255,255,255,.10);--card-border:rgba(255,255,255,.15);--text-muted:#cfcfcf;--accent:#4da6ff;--max-width:520px;--radius:16px;--gap:14px}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;min-height:100vh;background:radial-gradient(circle at top,var(--bg1)0%,var(--bg2)45%,var(--bg3)100%);color:#fff;display:flex;justify-content:center;padding:30px 15px}
+    .container{width:100%;max-width:var(--max-width);text-align:center}
+    .profile-image{width:105px;height:105px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+    .name{margin-top:15px;font-size:28px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center}
+    .bio{margin-top:8px;color:var(--text-muted);font-size:15px}
+    .links{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+    .link{display:flex;align-items:center;justify-content:center;min-height:62px;padding:15px 20px;color:inherit;text-decoration:none;font-size:17px;font-weight:700;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);backdrop-filter:blur(12px)}
+    .link:hover{transform:translateY(-3px);background:rgba(255,255,255,.18)}
+    .socials{display:flex;justify-content:center;gap:14px;margin-top:20px}
+    footer{margin-top:26px;color:#777;font-size:12px}
+    @media(max-width:500px){body{padding:20px 12px}.name{font-size:25px}.link{font-size:16px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="profile" role="banner">
+      <img class="profile-image" src="https://via.placeholder.com/300?text=milord" alt="milord.pikobuy — Profilbild" loading="lazy" width="105" height="105">
+      <div class="name">milord.pikobuy <span style="color:var(--accent);margin-left:8px">✓</span></div>
+      <p class="bio">🔗 Alle meine Links an einem Ort</p>
+    </header>
+
+    <main role="main">
+      <nav class="links" aria-label="Links">
+        <a class="link" href="https://beacons.ai/litbuyoficial" target="_blank" rel="noopener noreferrer">Mein Beacons</a>
+        <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">Mein TikTok</a>
+      </nav>
+
+      <div class="socials" aria-label="Soziale Profile">
+        <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">TikTok</a>
+      </div>
+    </main>
+
+    <footer role="contentinfo"><strong>milord.pikobuy</strong> · All your links in one place</footer>
+  </div>
+</body>
+</html>
