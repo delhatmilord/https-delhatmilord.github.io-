@@ -29,7 +29,6 @@
       position:relative;
       overflow:hidden;
       background-color:#000;
-      /* Galaxie-Hintergrund; ersetze bei Bedarf durch eigenes Bild */
       background-image:
         linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
         url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=2000&q=80');
@@ -37,7 +36,6 @@
       background-position:center center;
     }
 
-    /* Sonnen-Glow oben rechts */
     .sun {
       position:fixed;
       top:28px;
@@ -89,7 +87,6 @@
     }
 
     .name{margin-top:12px;font-size:26px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center;color:#fff}
-    /* Grosser, weisser Bio-Text in Großbuchstaben */
     .bio{
       margin-top:12px;
       color:var(--bio-color);
@@ -114,17 +111,16 @@
   </style>
 </head>
 <body>
-  <!-- Sonnen-Glow -->
   <div class="sun" aria-hidden="true"></div>
   <div class="space-overlay" aria-hidden="true"></div>
 
   <div class="container" role="main">
     <header class="profile" role="banner">
-      <!-- Profilbild: echtes Foto (Platzhalter von Unsplash). Ersetze durch eigenes Bild, wenn vorhanden. -->
+      <!-- Profilbild: bitte die von dir hochgeladene Datei im Repo unter /assets/milord-bandi.jpg ablegen -->
       <img
         class="profile-image"
-        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80"
-        alt="milord — Profilbild"
+        src="/assets/milord-bandi.jpg"
+        alt="Profilbild"
         loading="lazy"
         width="120"
         height="120"
@@ -132,7 +128,6 @@
       >
       <div class="name">milord.pikobuy <span style="color:var(--accent);margin-left:8px">✓</span></div>
 
-      <!-- Geänderter Haupttext -->
       <p class="bio">✨️MILORDS PAGE ✨️</p>
       <p class="bio small">🔗 Alle meine Links an einem Ort</p>
     </header>
