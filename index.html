@@ -7,159 +7,141 @@
   <title>milord.pikobuy</title>
   <style>
     :root{
-      --bg1:#05071a; /* tiefer Nachthimmel */
-      --bg2:#071426;
-      --bg3:#000;
-      --card-bg:rgba(255,255,255,.06);
-      --card-border:rgba(255,255,255,.12);
+      --card-bg:rgba(0,0,0,0.30);
+      --card-border:rgba(255,255,255,.10);
       --text-muted:#cfcfcf;
       --accent:#4da6ff;
       --max-width:520px;
       --radius:16px;
-      --gap:14px
+      --gap:14px;
+      --bio-color: #ffffff;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
     body{
       font-family:Arial,Helvetica,sans-serif;
       min-height:100vh;
-      color:#fff;
+      color:var(--bio-color);
       display:flex;
       justify-content:center;
+      align-items:center;
       padding:30px 15px;
       position:relative;
       overflow:hidden;
-      background: radial-gradient(ellipse at bottom, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
+      background-color:#000;
+      /* Beispiel-Galaxie-Hintergrund (ersetzen wenn du eigenes Bild hochlädst) */
+      background-image:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=2000&q=80');
+      background-size:cover;
+      background-position:center center;
     }
 
-    /* Sternenhintergrund: zwei Ebenen + Bewegung/Twinkle */
-    body::before,
-    body::after{
-      content:"";
+    /* Sonnen-Glow oben rechts */
+    .sun {
+      position:fixed;
+      top:28px;
+      right:28px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,200,1) 0%, rgba(255,220,120,0.9) 12%, rgba(255,160,40,0.6) 28%, rgba(255,120,20,0.12) 45%, transparent 65%);
+      filter: blur(8px) saturate(1.1);
+      box-shadow: 0 0 60px rgba(255,200,120,0.15);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    /* leichte Nebel-/Aurora-Überlagerung, um natürlicher zu wirken */
+    .space-overlay{
       position:fixed;
       inset:0;
-      pointer-events:none;
       z-index:0;
-      mix-blend-mode:screen;
-    }
-    body::before{
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.95) 0.8px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,0.8) 0.6px, transparent 1px);
-      background-size: 22px 22px, 48px 48px;
-      background-position: 0 0, 12px 30px;
-      opacity:0.95;
-      animation: driftSlow 140s linear infinite;
-      filter: blur(.2px);
-    }
-    body::after{
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.95) 1.6px, transparent 1.7px),
-        radial-gradient(circle, rgba(255,255,255,0.75) 1.2px, transparent 1.3px);
-      background-size: 180px 180px, 260px 260px;
-      background-position: 40px 80px, 120px 10px;
-      opacity:0.85;
-      animation: drift 220s linear infinite, twinkle 4s infinite;
-      filter: contrast(110%);
-    }
-    @keyframes drift{
-      from{ transform: translateY(0) translateX(0); }
-      to{ transform: translateY(-380px) translateX(160px); }
-    }
-    @keyframes driftSlow{
-      from{ transform: translateY(0) translateX(0); }
-      to{ transform: translateY(-140px) translateX(-120px); }
-    }
-    @keyframes twinkle{
-      0%,100%{ opacity:0.85 }
-      50%{ opacity:1 }
-    }
-
-    /* Mond */
-    .moon{
-      position:fixed;
-      top:40px;
-      right:40px;
-      width:88px;
-      height:88px;
-      background: radial-gradient(circle at 30% 30%, #fff 0%, #f3f6ff 8%, #cde0ff 18%, rgba(255,255,255,0.06) 60%, transparent 100%);
-      border-radius:50%;
-      box-shadow: 0 0 30px rgba(150,180,255,0.15), inset -6px -6px 18px rgba(0,0,0,0.25);
-      z-index:1;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(50,80,120,0.08), transparent 15%),
+        radial-gradient(ellipse at 80% 20%, rgba(120,90,50,0.04), transparent 20%);
       pointer-events:none;
-      transform:translateZ(0);
-      opacity:0.95;
     }
-    /* leichte Wolken-/Glow-Animation um den Mond */
-    .moon::after{
-      content:"";
-      position:absolute;
-      inset:-18px;
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      text-align:center;
+      position:relative;
+      z-index:2;
+      padding:28px;
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.20));
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+
+    .profile-image{
+      width:120px;
+      height:120px;
       border-radius:50%;
-      background: radial-gradient(circle, rgba(77,166,255,0.06), transparent 40%);
-      filter: blur(8px);
-      animation: moonGlow 6s ease-in-out infinite;
-      opacity:.9;
-    }
-    @keyframes moonGlow{
-      0%,100%{ transform: scale(1); opacity:.9 }
-      50%{ transform: scale(1.06); opacity:1 }
+      object-fit:cover;
+      border:3px solid rgba(255,255,255,0.12);
+      box-shadow:0 8px 30px rgba(0,0,0,.6);
+      display:block;
+      margin:0 auto;
+      background:#222;
     }
 
-    /* shooting star (ein einzelner, gelegentlicher Meteorit) */
-    .shooting-star{
-      position:fixed;
-      top:20%;
-      left:-10%;
-      width:3px;
-      height:3px;
-      background:linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
-      box-shadow: 0 0 8px 2px rgba(255,255,255,0.9);
-      transform: rotate(-25deg) translateX(0);
-      z-index:0;
-      pointer-events:none;
-      animation: shoot 6s linear infinite;
-      opacity:0;
+    .name{margin-top:12px;font-size:26px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center;color:#fff}
+    /* Grosser, weisser Bio-Text in Großbuchstaben */
+    .bio{
+      margin-top:12px;
+      color:var(--bio-color);
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
     }
-    @keyframes shoot{
-      0%{ opacity:0; transform: translateX(0) translateY(0) scaleX(1) rotate(-25deg) }
-      5%{ opacity:1 }
-      40%{ opacity:1; transform: translateX(120vw) translateY(-30vh) scaleX(1.2) rotate(-25deg) }
-      60%{ opacity:0 }
-      100%{ opacity:0; transform: translateX(0) translateY(0) rotate(-25deg) }
-    }
+    .bio.small{font-size:13px;font-weight:600;text-transform:none;color:var(--text-muted);margin-top:8px}
 
-    /* Page content über den Sternen */
-    .container{width:100%;max-width:var(--max-width);text-align:center;position:relative;z-index:3}
-    .profile-image{width:105px;height:105px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 30px rgba(0,0,0,.5)}
-    .name{margin-top:15px;font-size:28px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center}
-    .bio{margin-top:8px;color:var(--text-muted);font-size:15px}
-    .links{display:flex;flex-direction:column;gap:14px;margin-top:10px}
-    .link{display:flex;align-items:center;justify-content:center;min-height:62px;padding:15px 20px;color:inherit;text-decoration:none;font-size:17px;font-weight:700;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);backdrop-filter:blur(8px)}
-    .link:hover{transform:translateY(-3px);background:rgba(255,255,255,.12)}
-    .socials{display:flex;justify-content:center;gap:14px;margin-top:20px}
-    footer{margin-top:26px;color:#aaa;font-size:12px}
-    @media(max-width:500px){body{padding:20px 12px}.name{font-size:25px}.link{font-size:16px}}
+    .links{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+    .link{display:flex;align-items:center;justify-content:center;min-height:62px;padding:15px 20px;color:inherit;text-decoration:none;font-size:17px;font-weight:700;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);backdrop-filter:blur(6px)}
+    .link:hover{transform:translateY(-3px);background:rgba(255,255,255,.04)}
+    footer{margin-top:20px;color:rgba(255,255,255,0.75);font-size:12px}
+
+    @media(max-width:500px){
+      body{padding:20px 12px}
+      .name{font-size:22px}
+      .bio{font-size:16px}
+      .link{font-size:15px}
+    }
   </style>
 </head>
 <body>
-  <div class="moon" aria-hidden="true"></div>
-  <div class="shooting-star" aria-hidden="true"></div>
+  <!-- Sonnen-Glow -->
+  <div class="sun" aria-hidden="true"></div>
+  <div class="space-overlay" aria-hidden="true"></div>
 
-  <div class="container">
+  <div class="container" role="main">
     <header class="profile" role="banner">
-      <img class="profile-image" src="https://via.placeholder.com/300?text=milord" alt="milord.pikobuy — Profilbild" loading="lazy" width="105" height="105">
+      <!-- Profilbild: ersetze den Pfad /assets/milord-bandi.jpg mit deinem echten Bild im Repo.
+           Fallback auf Platzhalter, falls das Bild nicht vorhanden ist. -->
+      <img
+        class="profile-image"
+        src="/assets/milord-bandi.jpg"
+        alt="milord von Bandi — Profilbild"
+        loading="lazy"
+        width="120"
+        height="120"
+        onerror="this.onerror=null;this.src='https://via.placeholder.com/300?text=milord';"
+      >
       <div class="name">milord.pikobuy <span style="color:var(--accent);margin-left:8px">✓</span></div>
-      <p class="bio">In der Nacht · 🔗 Alle meine Links an einem Ort</p>
+      <!-- Großer weißer Text in Großbuchstaben -->
+      <p class="bio">IN DER NACHT · ALLE MEINE LINKS · DAS IST MEINE SEITE 💨</p>
+      <p class="bio small">🔗 Alle meine Links an einem Ort</p>
     </header>
 
-    <main role="main">
-      <nav class="links" aria-label="Links">
-        <a class="link" href="https://m.pikobuy.com/pages/login/register?invitedCode=ESBKQU" target="_blank" rel="noopener noreferrer">Pikobuy 40%</a>
-        <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">Mein TikTok</a>
-      </nav>
-
-      <!-- socials entfernt (duplikater TikTok-Link entfernt) -->
-    </main>
+    <nav class="links" aria-label="Links">
+      <a class="link" href="https://m.pikobuy.com/pages/login/register?invitedCode=ESBKQU" target="_blank" rel="noopener noreferrer">Pikobuy 40%</a>
+      <a class="link" href="https://www.tiktok.com/@milord.74" target="_blank" rel="noopener noreferrer">Mein TikTok</a>
+    </nav>
 
     <footer role="contentinfo"><strong>milord.pikobuy</strong> · All your links in one place</footer>
   </div>
