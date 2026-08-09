@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="milord.pikobuy — Alle meine Links an einem Ort" />
-  <title>milord.pikobuy</title>
+  <title>🌁MILORDS PAGE🌉</title>
   <style>
     :root{
       --card-bg:rgba(0,0,0,0.30);
@@ -29,7 +29,7 @@
       position:relative;
       overflow:hidden;
       background-color:#000;
-      /* Beispiel-Galaxie-Hintergrund (ersetzen wenn du eigenes Bild hochlädst) */
+      /* Galaxie-Hintergrund; ersetze bei Bedarf durch eigenes Bild */
       background-image:
         linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
         url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=2000&q=80');
@@ -52,7 +52,6 @@
       pointer-events:none;
     }
 
-    /* leichte Nebel-/Aurora-Überlagerung, um natürlicher zu wirken */
     .space-overlay{
       position:fixed;
       inset:0;
@@ -77,16 +76,16 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     }
 
-    .profile-image{
+    /* Inline-SVG Avatar styling */
+    .avatar-svg{
       width:120px;
       height:120px;
       border-radius:50%;
-      object-fit:cover;
-      border:3px solid rgba(255,255,255,0.12);
-      box-shadow:0 8px 30px rgba(0,0,0,.6);
       display:block;
       margin:0 auto;
-      background:#222;
+      box-shadow:0 8px 30px rgba(0,0,0,.6);
+      overflow:visible;
+      background:transparent;
     }
 
     .name{margin-top:12px;font-size:26px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:center;color:#fff}
@@ -121,18 +120,25 @@
 
   <div class="container" role="main">
     <header class="profile" role="banner">
-      <!-- Profilbild: ersetze den Pfad /assets/milord-bandi.jpg mit deinem echten Bild im Repo.
-           Fallback auf Platzhalter, falls das Bild nicht vorhanden ist. -->
-      <img
-        class="profile-image"
-        src="/assets/milord-bandi.jpg"
-        alt="milord von Bandi — Profilbild"
-        loading="lazy"
-        width="120"
-        height="120"
-        onerror="this.onerror=null;this.src='https://via.placeholder.com/300?text=milord';"
-      >
+      <!-- Eingebettetes SVG-Avatar (Platzhalter / ähnliches Bild) -->
+      <svg class="avatar-svg" viewBox="0 0 120 120" role="img" aria-label="milord von Bandi — Profilbild" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#4da6ff"/>
+            <stop offset="1" stop-color="#6b7cff"/>
+          </linearGradient>
+          <filter id="f1" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.45"/>
+          </filter>
+        </defs>
+        <g filter="url(#f1)">
+          <circle cx="60" cy="60" r="58" fill="url(#g1)"/>
+        </g>
+        <text x="50%" y="54%" text-anchor="middle" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" dy=".35em">M</text>
+      </svg>
+
       <div class="name">milord.pikobuy <span style="color:var(--accent);margin-left:8px">✓</span></div>
+
       <!-- Großer weißer Text in Großbuchstaben -->
       <p class="bio">IN DER NACHT · ALLE MEINE LINKS · DAS IST MEINE SEITE 💨</p>
       <p class="bio small">🔗 Alle meine Links an einem Ort</p>
